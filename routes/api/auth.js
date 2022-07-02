@@ -19,4 +19,10 @@ router.patch(
   controllers.uploadAvatar
 );
 
+router.get("/verify/:verificationToken", controllers.verificationToken);
+
+router.post("/verify", controllers.verifyEmail);
+
+router.patch("/", auth, controllers.updateSubUser);
+
 module.exports = router;
