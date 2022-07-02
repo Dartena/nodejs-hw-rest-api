@@ -6,7 +6,7 @@ const contactSchema = Joi.object({
   name: Joi.string().min(3).max(30),
   email: Joi.string().email({
     minDomainSegments: 2,
-    tlds: { allow: ["com", "net"] },
+    tlds: { allow: ["com", "net", "ua"] },
   }),
   phone: Joi.string()
     .min(10)
@@ -23,9 +23,23 @@ const registerSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const verifySchema = Joi.object({
+  email: Joi.string().pattern(emailRegex).required(),
+});
+
+const subSchema = Joi.object({
+  subscription: Joi.string().valid("starter", "pro", "business").required(),
+});
+
 const regSchema = {
   register: registerSchema,
   login: registerSchema,
 };
 
-module.exports = { contactSchema, favoriteSchema, regSchema };
+module.exports = {
+  contactSchema,
+  favoriteSchema,
+  regSchema,
+  verifySchema,
+  subSchema,
+};
